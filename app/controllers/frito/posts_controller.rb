@@ -1,6 +1,10 @@
 class Frito::PostsController < ApplicationController
   def index
-    @posts = Post.find(:all)
+    @posts = Frito::Post.find(:all)
+  end
+
+  def show
+    @post = Frito::Post.find(params[:id])
   end
 
   def new
@@ -18,9 +22,27 @@ class Frito::PostsController < ApplicationController
     end
   end
 
-  def show
+  def edit
     @post = Frito::Post.find(params[:id])
+  end
 
+  def update
+    @post = Frito::Post.find(params[:id])
+    respond_to do |format|
+      if @post.update_attributes(params[:frito_post])
+        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+      else
+        format.html { render action: "edit" }
+      end
+    end
+  end
+
+  def destroy
+    @post = Frito::Post.find(params[:id])
+    @post.destroy
+    respond_to do |format|
+      format.html { redirect_to frito_posts_url }
+    end
   end
 
 end

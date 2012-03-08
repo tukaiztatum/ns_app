@@ -1,2 +1,3 @@
-class Frito::Post < Post
+class Frito::Post < Core::Post
+
 end
